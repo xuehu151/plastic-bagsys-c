@@ -1,0 +1,23 @@
+<!--index.wxml-->
+<view class="container">
+      <view class="bagIconImg">
+            <block>
+                  <image class="iconStatus" 
+                        src="{{bgUrl}}" 
+                        mode="cover"></image>
+            </block>
+      </view>
+      <view class="middcircle">
+            <block>
+                  <image class="middBg" 
+                        src="{{imgUrl}}"></image>
+            </block>
+      </view>
+      <view class="purchaseInfo">
+            <text class="purchaseResult">{{purchaseResult}}</text>
+            <text class="purchaseDesc">{{purchaseDesc}}</text>
+            <text class="telphone" wx:if="{{telphoneShowHide}}">
+                  {{telphone}}
+            </text>
+      </view>
+</view>

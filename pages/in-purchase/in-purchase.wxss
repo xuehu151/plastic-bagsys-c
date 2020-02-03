@@ -1,0 +1,88 @@
+/**index.wxss**/
+
+page {
+      background-color: #3284fc;
+}
+
+.container {
+      height: 100%;
+      margin: 32rpx;
+      border-radius: 32rpx;
+      box-shadow: 0rpx 0rpx 30rpx 2rpx #00000071;
+      background-color: #fff;
+}
+
+.bagImage {
+      width: 100%;
+      height: 55vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+}
+
+.bagimg{
+      width: 100%;
+      height: 100%;
+      border-radius: 32rpx 32rpx 0 0;
+}
+
+/* 销售信息 */
+.bagInfo {
+      width: 100%;
+      height: 15vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f0eff5;
+}
+
+.bagDesc{
+}
+
+.describe{
+      display: inline-flex;
+      font-size: 40rpx;
+      font-weight: 800;
+}
+
+.bagNum{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 3%;
+}
+
+.bagNum .price{
+      color: #ff3d2f;
+      font-weight: 600;
+      font-size: 40rpx;
+}
+.bagNum .sold{
+      color: #8f8e94;
+}
+
+/* btn */
+.bagBtn {
+      width: 100%;
+      height: 15vh;
+      padding: 5% 8% 8%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+}
+
+.descText{
+      color: #3286fb;
+      font-weight: 600;
+}
+
+.FreeCollectionBtn{
+      width: 90%;
+      color: #ffffff;
+      padding: 8rpx 16rpx;
+      margin-top: 30rpx;
+      background-color: #3284fc;
+      border-radius: 20rpx; 
+      box-shadow: 0 0 15rpx 2rpx #00000071;
+}

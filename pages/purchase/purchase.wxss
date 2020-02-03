@@ -1,0 +1,63 @@
+/**index.wxss**/
+
+page {
+      background-color: #3284fc;
+}
+
+.container {
+      height: 100%;
+      margin: 32rpx;
+      border-radius: 32rpx;
+      box-shadow: 0rpx 0rpx 30rpx 2rpx #00000071;
+      background-color: #fff;
+}
+
+.bagIconImg{
+      width: 100%;
+}
+
+.iconStatus{
+      width: 8rem;
+      height: 8rem;          
+}
+
+.iconStatus:first-child{
+      border-radius: 32rpx;
+}
+
+.middcircle{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+}
+
+.middBg{
+      width: 48vw;
+      height: 30vh;
+}
+
+.purchaseInfo{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 8%;
+      margin-bottom: 40%;
+}
+
+.purchaseResult{
+      color: #000000;
+      font-weight: 600;
+      font-size: 40rpx;
+}
+
+.purchaseDesc{
+      color: #3286fb;
+      margin-top: 20rpx;
+}
+
+.telphone{
+      color: #ff0000;
+      margin-top: 20rpx;
+}

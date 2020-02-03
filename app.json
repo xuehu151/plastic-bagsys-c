@@ -1,0 +1,18 @@
+{
+      "pages": [
+            "pages/purchase/purchase",
+            "pages/in-purchase/in-purchase"
+      ],
+      "window": {
+            "backgroundTextStyle": "light",
+            "navigationBarBackgroundColor": "#3284fc",
+            "backgroundColor":"#3284fc",
+            "navigationBarTitleText": "用爱发袋",
+            "navigationBarTextStyle": "white"
+      },
+      "networkTimeout": {
+            "request": 10000,
+            "downloadFile": 10000
+      },
+      "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,29 @@
+<!--index.wxml-->
+<view class="container">
+      <view class="bagImage">
+            <block>
+                  <image 
+                        class="bagimg"
+                        src="{{imgUrl}}"></image>
+            </block>
+      </view>
+      <view class="bagInfo">
+            <div class="bagDesc">
+                  <rich-text class="describe">单肩袋大容量手提购物袋简约环保</rich-text>
+                  <div class="bagNum">
+                        <text class="price">￥0.00</text>
+                        <text class="sold">已售: 25325</text>
+                  </div>
+            </div>
+      </view>
+
+      <view class="bagBtn">
+            <text class="descText">超级环保100%降解,入水即溶、入土即化</text>
+            <button class="FreeCollectionBtn" 
+                        size="{{defaultSize}}"
+                        loading="{{loading}}"
+                        bindtap="FreeCollection">
+                        免费领取
+                  </button>
+      </view>
+</view>
