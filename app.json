@@ -1,7 +1,7 @@
 {
       "pages": [
-            "pages/purchase/purchase",
-            "pages/in-purchase/in-purchase"
+            "pages/in-purchase/in-purchase",
+            "pages/purchase/purchase"
       ],
       "window": {
             "backgroundTextStyle": "light",
