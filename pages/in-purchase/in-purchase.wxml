@@ -1,4 +1,5 @@
 <!--index.wxml-->
+<open-data open-type="getUserInfo"></open-data>
 <view class="container">
       <view class="bagImage">
             <block>

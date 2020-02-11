@@ -1,19 +1,63 @@
-const formatTime = date => {
-      const year = date.getFullYear()
-      const month = date.getMonth() + 1
-      const day = date.getDate()
-      const hour = date.getHours()
-      const minute = date.getMinutes()
-      const second = date.getSeconds()
-
-      return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+/* 公共request 方法 */
+const requestUrl = ({
+      url,
+      params,
+      success,
+      method = "post"
+}) => {
+      wx.showLoading({
+            title: '加载中',
+      });
+      let server = 'https://minapp.qudaiji.com/'; //正式域名
+      let token = wx.getStorageSync("token"),
+            that = this;
+      if (token != "" && token != null) {
+            var header = {
+                  'content-type': 'application/x-www-form-urlencoded',
+                  'X-Auth-Token': token
+            }
+      } else {
+            var header = {
+                  'content-type': 'application/x-www-form-urlencoded'
+            }
+      }
+      return new Promise((resolve, reject) => {
+            wx.request({
+                  url: server + url,
+                  method: method,
+                  data: params,
+                  header: header,
+                  success: (res) => {
+                        console.info(res)
+                        wx.hideLoading();
+                        if (res['statusCode'] == 200) {
+                              resolve(res) //异步成功之后执行的函数
+                        } else {
+                              wx.showToast({
+                                    title: res.data.msg || '请求出错',
+                                    icon: 'none',
+                                    duration: 2000,
+                                    mask: true
+                              })
+                              reject(res.ErrorMsg);
+                        }
+                  },
+                  fail: (res) => {
+                        wx.hideLoading();
+                        wx.showToast({
+                              title: res.data.msg || '',
+                              icon: 'none',
+                              duration: 2000,
+                              mask: true
+                        })
+                        reject('网络出错');
+                  },
+                  complete: function() {
+                        wx.hideLoading()
+                  }
+            })
+      })
 }
-
-const formatNumber = n => {
-      n = n.toString()
-      return n[1] ? n : '0' + n
-}
-
 module.exports = {
-      formatTime: formatTime
+      requestUrl: requestUrl
 }
