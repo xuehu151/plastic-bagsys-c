@@ -1,0 +1,72 @@
+/**index.wxss**/
+
+.pay {
+      padding: 0 15px;
+      background: white;
+}
+
+.pay .prodect {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 1rem 0;
+}
+
+.pay  .total-money {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #000;
+      font-size: 2.5rem;
+      font-weight: 600;
+}
+
+.pay .consignee {
+      height: 42px;
+      line-height: 42px;
+      font-size: 0.9rem;
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e3e3e3;
+      border-bottom: 1px solid #e3e3e3;
+}
+
+.pay .consignee span {
+      width: 4rem;
+}
+
+.pay .consignee  div {
+      width: calc(100% - 4rem);
+      display: inline-flex;
+      justify-content: flex-end;
+}
+
+.pay-btn {
+      width: 100%;
+      height: 74px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: white;
+}
+
+.pay-btn button {
+      border: 0;
+      width: 100%;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      color: #fff;
+      font-size: 14px;
+      border-radius: 6px;
+      box-shadow: 0 3px 14px -10px #000;
+      outline: none;
+      background-color: #3284fc;
+}
+
+.pay-btn button:disabled {
+      background: #bbb;
+}

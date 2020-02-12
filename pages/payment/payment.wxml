@@ -1,0 +1,13 @@
+<!--index.wxml-->
+<view class="pay">
+      <rich-text class="prodect">用爱发袋产品</rich-text>
+      <div class="total-money">￥{{Price}}</div>
+      <view class="consignee">
+            <span>收款方</span>
+            <div>{{consignee}}</div>
+      </view>
+      <view class="pay-btn">
+            <button bindtap="payMent">立即支付</button>
+      </view>
+</view>
+

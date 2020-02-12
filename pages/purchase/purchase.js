@@ -5,52 +5,34 @@ const app = getApp()
 Page({
       data: {
             bgUrl: "../images/25prec.png",
-            imgUrl: "../images/success.png",
-            purchaseResult:"购买成功!",
-            purchaseDesc:"感谢你为环保贡献一份力量!",
+            imgUrl: "../images/nobag.png",
+            purchaseResult:"",
+            purchaseDesc:"",
             telphone:"400-800- 8866",
             telphoneShowHide: false
       },
-      //事件处理函数
-      bindViewTap: function() {
-            // wx.navigateTo({
-            //       url: '../logs/logs'
-            // })
-      },
       onLoad: function() {
-            if (app.globalData.userInfo) {
-                  this.setData({
-                        userInfo: app.globalData.userInfo,
-                        hasUserInfo: true
-                  })
-            } else if (this.data.canIUse) {
-                  // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-                  // 所以此处加入 callback 以防止这种情况
-                  app.userInfoReadyCallback = res => {
-                        this.setData({
-                              userInfo: res.userInfo,
-                              hasUserInfo: true
-                        })
-                  }
-            } else {
-                  // 在没有 open-type=getUserInfo 版本的兼容处理
-                  wx.getUserInfo({
-                        success: res => {
-                              app.globalData.userInfo = res.userInfo
-                              this.setData({
-                                    userInfo: res.userInfo,
-                                    hasUserInfo: true
-                              })
-                        }
+            let self = this;
+            if (app.globalData.nobag ){
+                  self.setData({
+                        imgUrl: "../images/nobag.png",
+                        purchaseResult: '袋子没有了...',
+                        purchaseDesc: '请联系管理员!'
                   })
             }
-      },
-      getUserInfo: function(e) {
-            console.log(e)
-            app.globalData.userInfo = e.detail.userInfo
-            this.setData({
-                  userInfo: e.detail.userInfo,
-                  hasUserInfo: true
-            })
+            else if (app.globalData.success){
+                  self.setData({
+                        imgUrl: "../images/success.png",
+                        purchaseResult: '购买成功!',
+                        purchaseDesc: '感谢你为环保贡献一份力量!'
+                  })
+            }
+            else if (app.globalData.shopping) {
+                  self.setData({
+                        imgUrl: "../images/selling.png",
+                        purchaseResult: '购买中...',
+                        purchaseDesc: '请稍等...'
+                  })
+            }
       }
 })

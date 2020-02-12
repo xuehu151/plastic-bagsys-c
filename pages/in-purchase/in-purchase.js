@@ -7,30 +7,97 @@ Page({
       data: {
             defaultSize: 'default',
             imgUrl: "../images/bag.png",
-            loading: false
+            Price: '0.00',
+            Sold: '0',
+            consignee: '',
+            runStatus: '',
+            btnText: '',
+            deviceCode: '',
+            isPay: false
       },
-      //事件处理函数
       FreeCollection: function() {
-            // this.setData({
-            //       loading: !this.data.loading
-            // })
-            wx.navigateTo({
-                  url: '../purchase/purchase'
-            })
-      },
+            let self = this;
+            if (self.data.runStatus === 1) {
+                  if (self.data.Price !== 0) {
+                        //下单
+                        requestUrl.requestUrl({
+                                    url: "biz/order/scan/add",
+                                    params: {
+                                          count: 1,
+                                          deviceCode: self.data.deviceCode
+                                    },
+                                    method: "post",
+                              }).then(function(res) {
+                                    console.info(res)
+                                    wx.navigateTo({
+                                          url: '../payment/payment?Price=' + res.data.data.price + '&consignee=' + self.data.consignee + '&sn=' + res.data.data.sn
+                                    })
+                              })
+                              .catch((errorMsg) => {
+                                    //error
+                              })
+                  } else {
 
+                  }
+            } else if (self.data.runStatus === 2) {
+                  wx.showToast({
+                        title: '设备异常，请联系管理员!',
+                        icon: 'none',
+                        duration: 2000,
+                        mask: true
+                  })
+            }
+            // wx.navigateTo({
+            //       url: '../purchase/purchase'
+            // })
+      },
       /**
        * 生命周期函数--监听页面加载
        */
-      onLoad: (options) => {
+      onLoad: function(options) {
+            let self = this;
             wx.getSetting({
                   success: (res) => {
-                        if (res.authSetting['scope.userInfo']) { //授权了，可以获取用户信息了
+                        if (res.authSetting['scope.userInfo']) {
                               wx.getUserInfo({
                                     success: (res) => {
                                           app.globalData.userInfo = res.userInfo;
                                     }
                               })
+                              //根据编号查询设备
+                              requestUrl.requestUrl({
+                                          url: "biz/device/infoByCode/LDA10001",
+                                          params: {},
+                                          method: "get",
+                                    }).then(function(res) {
+                                          if (res.data.data && res.data.data.runStatus === 1) {
+                                                self.setData({
+                                                      Price: res.data.data.goodsPrice,
+                                                      Sold: res.data.data.totalGoodsSalesCount || 0,
+                                                      runStatus: res.data.data.runStatus,
+                                                      consignee: res.data.data.agentName,
+                                                      deviceCode: res.data.data.deviceCode
+                                                })
+                                                app.globalData.success = true;
+                                          } else {
+                                                app.globalData.nobag = true;
+                                                wx.redirectTo({
+                                                      url: '../purchase/purchase'
+                                                })
+                                          }
+                                          if (res.data.data.goodsPrice === 0) {
+                                                self.setData({
+                                                      btnText: '免费领取'
+                                                })
+                                          } else {
+                                                self.setData({
+                                                      btnText: '为环保事业加油!'
+                                                })
+                                          }
+                                    })
+                                    .catch((errorMsg) => {
+                                          //error
+                                    })
                         } else {
                               wx.redirectTo({
                                     url: '../authorize/authorize', //授权页面
@@ -38,19 +105,7 @@ Page({
                         }
                   }
             })
-            requestUrl.requestUrl({
-                        url: "biz/device/infoByCode/LDA10001",
-                        params: {},
-                        method: "get",
-                  })
-                  .then((data) => { 
-                        console.log("允许授权了");
-                  })
-                  .catch((errorMsg) => {
-                        console.log(errorMsg)
-                  })
       },
-
       /**
        * 生命周期函数--监听页面初次渲染完成
        */

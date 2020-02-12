@@ -13,12 +13,12 @@ const requestUrl = ({
             that = this;
       if (token != "" && token != null) {
             var header = {
-                  'content-type': 'application/x-www-form-urlencoded',
+                  'content-type': 'application/json',
                   'X-Auth-Token': token
             }
       } else {
             var header = {
-                  'content-type': 'application/x-www-form-urlencoded'
+                  'content-type': 'application/json'
             }
       }
       return new Promise((resolve, reject) => {
@@ -28,10 +28,9 @@ const requestUrl = ({
                   data: params,
                   header: header,
                   success: (res) => {
-                        console.info(res)
                         wx.hideLoading();
                         if (res['statusCode'] == 200) {
-                              resolve(res) //异步成功之后执行的函数
+                              resolve(res)
                         } else {
                               wx.showToast({
                                     title: res.data.msg || '请求出错',
@@ -44,12 +43,13 @@ const requestUrl = ({
                   },
                   fail: (res) => {
                         wx.hideLoading();
-                        wx.showToast({
-                              title: res.data.msg || '',
-                              icon: 'none',
-                              duration: 2000,
-                              mask: true
-                        })
+                        console.info(res)
+                        // wx.showToast({
+                        //       title: res.data.msg || '',
+                        //       icon: 'none',
+                        //       duration: 2000,
+                        //       mask: true
+                        // })
                         reject('网络出错');
                   },
                   complete: function() {

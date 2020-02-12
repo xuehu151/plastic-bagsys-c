@@ -12,8 +12,8 @@
             <div class="bagDesc">
                   <rich-text class="describe">单肩袋大容量手提购物袋简约环保</rich-text>
                   <div class="bagNum">
-                        <text class="price">￥0.00</text>
-                        <text class="sold">已售: 25325</text>
+                        <text class="price">￥{{Price}}</text>
+                        <text class="sold">已售: {{Sold}}</text>
                   </div>
             </div>
       </view>
@@ -24,7 +24,7 @@
                         size="{{defaultSize}}"
                         loading="{{loading}}"
                         bindtap="FreeCollection">
-                        免费领取
+                        {{btnText}}
                   </button>
       </view>
 </view>
