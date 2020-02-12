@@ -18,27 +18,29 @@ Page({
       FreeCollection: function() {
             let self = this;
             if (self.data.runStatus === 1) {
-                  if (self.data.Price !== 0) {
-                        //下单
-                        requestUrl.requestUrl({
-                                    url: "biz/order/scan/add",
-                                    params: {
-                                          count: 1,
-                                          deviceCode: self.data.deviceCode
-                                    },
-                                    method: "post",
-                              }).then(function(res) {
-                                    console.info(res)
+                  //下单
+                  requestUrl.requestUrl({
+                              url: "biz/order/scan/add",
+                              params: {
+                                    count: 1,
+                                    deviceCode: self.data.deviceCode
+                              },
+                              method: "post",
+                        }).then(function(res) {
+                              if (self.data.Price !== 0) {
                                     wx.navigateTo({
                                           url: '../payment/payment?Price=' + res.data.data.price + '&consignee=' + self.data.consignee + '&sn=' + res.data.data.sn
                                     })
-                              })
-                              .catch((errorMsg) => {
-                                    //error
-                              })
-                  } else {
-
-                  }
+                              } else {
+                                    wx.navigateTo({
+                                          url: '../purchase/purchase'
+                                    })
+                                    app.globalData.success = true;
+                              }
+                        })
+                        .catch((errorMsg) => {
+                              //error
+                        })
             } else if (self.data.runStatus === 2) {
                   wx.showToast({
                         title: '设备异常，请联系管理员!',
@@ -47,9 +49,6 @@ Page({
                         mask: true
                   })
             }
-            // wx.navigateTo({
-            //       url: '../purchase/purchase'
-            // })
       },
       /**
        * 生命周期函数--监听页面加载

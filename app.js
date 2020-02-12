@@ -11,7 +11,6 @@ App({
                                           params: {},
                                           method: "post",
                                     }).then(function(res) {
-                                          console.info(res)
                                           wx.setStorageSync('token', res.data.data.token);
                                     })
                                     .catch((errorMsg) => {
