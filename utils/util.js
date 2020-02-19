@@ -2,8 +2,8 @@
 const requestUrl = ({
       url,
       params,
-      success,
-      method = "post"
+      method = "post",
+      success
 }) => {
       wx.showLoading({
             title: '加载中',
@@ -43,7 +43,6 @@ const requestUrl = ({
                   },
                   fail: (res) => {
                         wx.hideLoading();
-                        console.info(res)
                         // wx.showToast({
                         //       title: res.data.msg || '',
                         //       icon: 'none',

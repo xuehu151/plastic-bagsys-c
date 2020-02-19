@@ -19,6 +19,7 @@ Page({
                         },
                         method: "post",
                   }).then(function(res) {
+                        console.info(res)
                         wx.requestPayment({
                               'timeStamp': res.data.data.timeStamp,
                               'nonceStr': res.data.data.nonceStr,

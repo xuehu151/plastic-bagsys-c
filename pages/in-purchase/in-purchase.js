@@ -58,11 +58,6 @@ Page({
             wx.getSetting({
                   success: (res) => {
                         if (res.authSetting['scope.userInfo']) {
-                              wx.getUserInfo({
-                                    success: (res) => {
-                                          app.globalData.userInfo = res.userInfo;
-                                    }
-                              })
                               //根据编号查询设备
                               requestUrl.requestUrl({
                                           url: "biz/device/infoByCode/LDA10001",
