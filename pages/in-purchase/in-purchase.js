@@ -28,9 +28,18 @@ Page({
                               method: "post",
                         }).then(function(res) {
                               if (self.data.Price !== 0) {
-                                    wx.navigateTo({
-                                          url: '../payment/payment?Price=' + res.data.data.price + '&consignee=' + self.data.consignee + '&sn=' + res.data.data.sn
-                                    })
+                                    if (!res.data.data) {
+                                          wx.showLoading({
+                                                title: res.data.message,
+                                          });
+                                          setTimeout(() => {
+                                                wx.hideLoading();
+                                          }, 2000)
+                                    } else {
+                                          wx.navigateTo({
+                                                url: '../payment/payment?Price=' + res.data.data.price + '&consignee=' + self.data.consignee + '&sn=' + res.data.data.sn
+                                          })
+                                    }
                               } else {
                                     wx.navigateTo({
                                           url: '../purchase/purchase'
@@ -39,7 +48,7 @@ Page({
                               }
                         })
                         .catch((errorMsg) => {
-                              //error
+                              console.info(errorMsg)
                         })
             } else if (self.data.runStatus === 2) {
                   wx.showToast({
@@ -53,14 +62,17 @@ Page({
       /**
        * 生命周期函数--监听页面加载
        */
-      onLoad: function(options) {
+      onLoad: function(query) {
             let self = this;
+            console.info('+++++++', query)
+            const scene = decodeURIComponent(query.scene);
+            console.info(scene)
             wx.getSetting({
                   success: (res) => {
                         if (res.authSetting['scope.userInfo']) {
                               //根据编号查询设备
                               requestUrl.requestUrl({
-                                          url: "biz/device/infoByCode/LDA10001",
+                                          url: "biz/device/infoByCode/12345678900",
                                           params: {},
                                           method: "get",
                                     }).then(function(res) {

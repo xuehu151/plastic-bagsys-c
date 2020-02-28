@@ -25,7 +25,7 @@ App({
                                                                   },
                                                                   method: "post",
                                                             }).then(function(res) {
-                                                                  console.info(res)
+                                                                  //console.info(res)
                                                             })
                                                             .catch((errorMsg) => {
                                                                   //error
