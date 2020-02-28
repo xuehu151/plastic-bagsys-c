@@ -72,7 +72,7 @@ Page({
                         if (res.authSetting['scope.userInfo']) {
                               //根据编号查询设备
                               requestUrl.requestUrl({
-                                          url: "biz/device/infoByCode/123456789001",
+                                          url: "biz/device/infoByCode/12345678900",
                                           params: {},
                                           method: "get",
                                     }).then(function(res) {
