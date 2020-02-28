@@ -64,15 +64,15 @@ Page({
        */
       onLoad: function(query) {
             let self = this;
-            console.info('+++++++', query)
+            console.info('*********', query. scene)
             const scene = decodeURIComponent(query.scene);
-            console.info(scene)
+            console.info('+++++++', scene)
             wx.getSetting({
                   success: (res) => {
                         if (res.authSetting['scope.userInfo']) {
                               //根据编号查询设备
                               requestUrl.requestUrl({
-                                          url: "biz/device/infoByCode/12345678900",
+                                    url: "biz/device/infoById/"  + scene,
                                           params: {},
                                           method: "get",
                                     }).then(function(res) {
