@@ -72,10 +72,11 @@ Page({
                         if (res.authSetting['scope.userInfo']) {
                               //根据编号查询设备
                               requestUrl.requestUrl({
-                                          url: "biz/device/infoByCode/12345678900",
+                                          url: "biz/device/infoByCode/123456789001",
                                           params: {},
                                           method: "get",
                                     }).then(function(res) {
+                                          console.info(res.data)
                                           if (res.data.data && res.data.data.runStatus === 1) {
                                                 self.setData({
                                                       Price: res.data.data.goodsPrice,
@@ -87,9 +88,17 @@ Page({
                                                 app.globalData.success = true;
                                           } else {
                                                 app.globalData.nobag = true;
-                                                wx.redirectTo({
-                                                      url: '../purchase/purchase'
-                                                })
+                                                setTimeout(() => {
+                                                      wx.showLoading({
+                                                            title: res.data.message,
+                                                            duration: 2000,
+                                                      });
+                                                },1000)
+                                                setTimeout(() => {
+                                                      wx.redirectTo({
+                                                            url: '../purchase/purchase'
+                                                      })
+                                                }, 2000)
                                           }
                                           if (res.data.data.goodsPrice === 0) {
                                                 self.setData({
@@ -102,7 +111,8 @@ Page({
                                           }
                                     })
                                     .catch((errorMsg) => {
-                                          //error
+                                          console.info(123456)
+                                          console.info(errorMsg)
                                     })
                         } else {
                               wx.redirectTo({
