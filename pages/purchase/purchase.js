@@ -19,6 +19,12 @@ Page({
                         purchaseResult: '袋子没有了...',
                         purchaseDesc: '请联系管理员!'
                   })
+            } else if (app.globalData.shopFaild) {
+                  self.setData({
+                        imgUrl: "../images/nobag.png",
+                        purchaseResult: '购买失败...',
+                        purchaseDesc: '请联系管理员!'
+                  })
             }
             else if (app.globalData.success){
                   self.setData({

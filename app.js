@@ -44,6 +44,7 @@ App({
             userInfo: null,
             success: false,
             nobag: false,
-            shopping: false
+            shopping: false,
+            shopFaild: false
       }
 })

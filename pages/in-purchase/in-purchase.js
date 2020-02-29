@@ -62,11 +62,12 @@ Page({
       /**
        * 生命周期函数--监听页面加载
        */
-      onLoad: function(query) {
+      onLoad: function (query) {//{scene:'5'}
+            if (JSON.stringify(query) !== '{}'){
+                  wx.setStorageSync('scene', decodeURIComponent(query.scene));
+            }
+            let scene = wx.getStorageSync('scene');
             let self = this;
-            console.info('*********', query. scene)
-            const scene = decodeURIComponent(query.scene);
-            console.info('+++++++', scene)
             wx.getSetting({
                   success: (res) => {
                         if (res.authSetting['scope.userInfo']) {
@@ -77,7 +78,7 @@ Page({
                                           method: "get",
                                     }).then(function(res) {
                                           console.info(res.data)
-                                          if (res.data.data && res.data.data.runStatus === 1) {
+                                          if (res.data.code === 10000) {
                                                 self.setData({
                                                       Price: res.data.data.goodsPrice,
                                                       Sold: res.data.data.totalGoodsSalesCount || 0,
