@@ -41,10 +41,47 @@ Page({
                                           })
                                     }
                               } else {
-                                    wx.navigateTo({
-                                          url: '../purchase/purchase'
-                                    })
-                                    app.globalData.success = true;
+                                    let self = this;
+                                    if (res.data.data) {
+                                          requestUrl.requestUrl({
+                                                url: "biz/order/scan/findBySn?sn=" + res.data.data.sn,
+                                                params: {},
+                                                method: "get",
+                                          }).then(function(res) {
+                                                if (res.data.code === 10000) {
+                                                      if (res.data.data.status === 2) {
+                                                            app.globalData.success = true;
+                                                            wx.navigateTo({
+                                                                  url: '../purchase/purchase'
+                                                            })
+                                                      } else if (res.data.data.status === 3) {
+                                                            wx.showToast({
+                                                                  title: '设备异常',
+                                                                  icon: 'none',
+                                                                  duration: 2000
+                                                            })
+                                                      }else{
+                                                            wx.showToast({
+                                                                  title: '未处理',
+                                                                  icon: 'none',
+                                                                  duration: 2000
+                                                            })
+                                                      }
+                                                } else {
+                                                      wx.showToast({
+                                                            title: res.data.message,
+                                                            icon: 'none',
+                                                            duration: 2000
+                                                      })
+                                                }
+                                          })
+                                    } else {
+                                          wx.showToast({
+                                                title: res.data.message,
+                                                icon: 'none',
+                                                duration: 2000
+                                          })
+                                    }
                               }
                         })
                         .catch((errorMsg) => {
@@ -62,8 +99,8 @@ Page({
       /**
        * 生命周期函数--监听页面加载
        */
-      onLoad: function (query) {//{scene:'5'}
-            if (JSON.stringify(query) !== '{}'){
+      onLoad: function(query) { //{scene:'5'}
+            if (JSON.stringify(query) !== '{}') {
                   wx.setStorageSync('scene', decodeURIComponent(query.scene));
             }
             let scene = wx.getStorageSync('scene');
@@ -73,11 +110,11 @@ Page({
                         if (res.authSetting['scope.userInfo']) {
                               //根据编号查询设备
                               requestUrl.requestUrl({
-                                    url: "biz/device/infoById/"  + scene,
+                                          url: "biz/device/infoById/" + scene,
                                           params: {},
                                           method: "get",
                                     }).then(function(res) {
-                                          console.info(res.data)
+                                          //console.info(res.data)
                                           if (res.data.code === 10000) {
                                                 self.setData({
                                                       Price: res.data.data.goodsPrice,
@@ -94,7 +131,7 @@ Page({
                                                             title: res.data.message,
                                                             duration: 2000,
                                                       });
-                                                },1000)
+                                                }, 1000)
                                                 setTimeout(() => {
                                                       wx.redirectTo({
                                                             url: '../purchase/purchase'

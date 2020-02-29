@@ -99,18 +99,6 @@ Page({
             })
       },
 
-      getOrderFailedStatus(sn) {
-            let self = this;
-            requestUrl.requestUrl({
-                  url: "biz/order/scan/findBySn?sn=" + sn,
-                  params: {},
-                  method: "get",
-            }).then(function(res) {
-                  console.info(res);
-                  return res.data.data.status;
-            })
-      },
-
       onLoad: function(options) {
             let self = this;
             self.setData({
