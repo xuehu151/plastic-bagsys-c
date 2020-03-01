@@ -18,13 +18,15 @@
             </div>
       </view>
 
-      <view class="bagBtn">
+      <view class="bagBtn" wx:if="{{canIUse}}">
             <text class="descText">超级环保100%降解,入水即溶、入土即化</text>
-            <button class="FreeCollectionBtn" 
-                        size="{{defaultSize}}"
-                        loading="{{loading}}"
-                        bindtap="FreeCollection">
-                        {{btnText}}
-                  </button>
+            <button
+                  class='FreeCollectionBtn'
+                  size="{{defaultSize}}"
+                  open-type="getUserInfo"
+                  lang="zh_CN"
+                  bindgetuserinfo="bindGetUserInfo">
+                  {{btnText}}
+            </button>
       </view>
 </view>

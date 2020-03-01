@@ -49,7 +49,7 @@ Page({
                   params: {},
                   method: "get",
             }).then(function(res) {
-                  console.info('init', res);
+                  // console.info('init', res);
                   if (res.data.data.status === 1) { //购买失败  循环调取
                         app.globalData.shopFaild = true;
                         let timer = setInterval(() => {
@@ -68,10 +68,10 @@ Page({
                                           return
                                     } else if (res.data.data.status === 3) {
                                           clearInterval(timer)
-                                          wx.showLoading({
-                                                title: '设备异常',
-                                                duration: 2000,
-                                          });
+                                          app.globalData.nobag = true;
+                                          wx.navigateTo({
+                                                url: '../purchase/purchase'
+                                          })
                                           return
                                     } else {
                                           app.globalData.shopFaild = true;
@@ -91,10 +91,10 @@ Page({
                               url: '../purchase/purchase'
                         })
                   } else { //设备异常
-                        wx.showLoading({
-                              title: '设备异常',
-                              duration: 2000,
-                        });
+                        app.globalData.nobag = true;
+                        wx.navigateTo({
+                              url: '../purchase/purchase'
+                        })
                   }
             })
       },
