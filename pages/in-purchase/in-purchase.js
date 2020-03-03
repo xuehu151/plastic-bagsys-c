@@ -65,6 +65,11 @@ Page({
                                                                         wx.navigateTo({
                                                                               url: '../purchase/purchase'
                                                                         })
+                                                                  } else if (res.data.data.status === 4) {
+                                                                        app.globalData.shopping = true;
+                                                                        wx.navigateTo({
+                                                                              url: '../purchase/purchase'
+                                                                        })
                                                                   } else {
                                                                         wx.showToast({
                                                                               title: '未处理',
@@ -109,7 +114,7 @@ Page({
                                                       params: {},
                                                       method: "post",
                                                 }).then(function(res) {
-                                                      console.info('登录', res)
+                                                      //console.info('登录', res)
                                                       wx.setStorageSync('token', res.data.data.token);
                                                       wx.getUserInfo({
                                                             success: function(res) {

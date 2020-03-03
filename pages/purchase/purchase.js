@@ -37,7 +37,7 @@ Page({
                   self.setData({
                         imgUrl: "../images/selling.png",
                         purchaseResult: '购买中...',
-                        purchaseDesc: '请稍等...'
+                        purchaseDesc: '购袋用户较多，出袋较慢，请耐心等待...'
                   })
             }
       }
