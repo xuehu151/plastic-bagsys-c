@@ -61,7 +61,7 @@
 					"id": 0,
 					"name": "scan",
 					"pathName": "pages/in-purchase/in-purchase",
-					"query": "scene=4",
+					"query": "scene=5",
 					"scene": 1011
 				}
 			]

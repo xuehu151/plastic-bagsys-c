@@ -97,9 +97,16 @@ Page({
                                     .catch((errorMsg) => {
                                           console.info(errorMsg)
                                     })
-                        } else if (that.data.runStatus === 2) {
+                        } else if (self.data.runStatus === 2) {
                               wx.showToast({
                                     title: '设备异常，请联系管理员!',
+                                    icon: 'none',
+                                    duration: 2000,
+                                    mask: true
+                              })
+                        }  else if (self.data.runStatus === 3) {
+                              wx.showToast({
+                                    title: '设备已离线',
                                     icon: 'none',
                                     duration: 2000,
                                     mask: true
@@ -193,7 +200,6 @@ Page({
                         }
                   })
                   .catch((errorMsg) => {
-                        console.info(123456)
                         console.info(errorMsg)
                   })
       },
