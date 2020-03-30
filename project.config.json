@@ -55,13 +55,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "scan",
 					"pathName": "pages/in-purchase/in-purchase",
-					"query": "scene=5",
+					"query": "scene=1",
 					"scene": 1011
 				}
 			]
