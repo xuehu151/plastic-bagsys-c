@@ -21,109 +21,109 @@ Page({
       let self = this;
       // self.isAuthorizeBtn = true;
       let token = wx.getStorageSync("token");
-      let expiration = wx.getStorageSync("expiration");
-      let timestamp = Date.parse(new Date());
       if (token) {
-        if (expiration - timestamp <= 0) {
-          wx.clearStorageSync("token");
-          wx.showToast({
-            title: 'token过期或未授权，请重新授权!',
-            icon: 'none',
-            duration: 2000,
-            mask: true
-          })
-        } else {
-          if (self.data.runStatus === 1) {
-            //下单
-            requestUrl.requestUrl({
-                url: "biz/order/scan/add",
-                params: {
-                  count: 1,
-                  deviceCode: self.data.deviceCode
-                },
-                method: "post",
-              }).then(function(res) {
-                if (self.data.Price !== 0) {
-                  if (!res.data.data) {
-                    wx.showLoading({
-                      title: res.data.message,
-                    });
-                    setTimeout(() => {
-                      wx.hideLoading();
-                    }, 2000)
+        requestUrl.requestUrl({
+            url: 'public/refreshToken',
+            params: {},
+            method: "post",
+          }).then(function(res) {
+            // console.info('登...录', res);
+            wx.clearStorageSync("token");
+            wx.setStorageSync('token', res.data.data.token);
+            if (self.data.runStatus === 1) {
+              //下单
+              requestUrl.requestUrl({
+                  url: "biz/order/scan/add",
+                  params: {
+                    count: 1,
+                    deviceCode: self.data.deviceCode
+                  },
+                  method: "post",
+                }).then(function(res) {
+                  if (self.data.Price !== 0) {
+                    if (!res.data.data) {
+                      wx.showLoading({
+                        title: res.data.message,
+                      });
+                      setTimeout(() => {
+                        wx.hideLoading();
+                      }, 2000)
+                    } else {
+                      wx.navigateTo({
+                        url: '../payment/payment?Price=' + res.data.data.price + '&consignee=' + self.data.consignee + '&sn=' + res.data.data.sn
+                      })
+                    }
                   } else {
-                    wx.navigateTo({
-                      url: '../payment/payment?Price=' + res.data.data.price + '&consignee=' + self.data.consignee + '&sn=' + res.data.data.sn
-                    })
-                  }
-                } else {
-                  let self = this;
-                  if (res.data.data) {
-                    requestUrl.requestUrl({
-                      url: "biz/order/scan/findBySn?sn=" + res.data.data.sn,
-                      params: {},
-                      method: "get",
-                    }).then(function(res) {
-                      // console.info('res',res)
-                      if (res.data.code === 10000) {
-                        if (res.data.data.status === 2) {
-                          app.globalData.success = true;
-                          wx.navigateTo({
-                            url: '../purchase/purchase'
-                          })
-                        } else if (res.data.data.status === 3) {
-                          app.globalData.nobag = true;
-                          wx.navigateTo({
-                            url: '../purchase/purchase'
-                          })
-                        } else if (res.data.data.status === 4) {
-                          app.globalData.shopping = true;
-                          wx.navigateTo({
-                            url: '../purchase/purchase'
-                          })
+                    let self = this;
+                    if (res.data.data) {
+                      requestUrl.requestUrl({
+                        url: "biz/order/scan/findBySn?sn=" + res.data.data.sn,
+                        params: {},
+                        method: "get",
+                      }).then(function(res) {
+                        // console.info('res',res)
+                        if (res.data.code === 10000) {
+                          if (res.data.data.status === 2) {
+                            app.globalData.success = true;
+                            wx.navigateTo({
+                              url: '../purchase/purchase'
+                            })
+                          } else if (res.data.data.status === 3) {
+                            app.globalData.nobag = true;
+                            wx.navigateTo({
+                              url: '../purchase/purchase'
+                            })
+                          } else if (res.data.data.status === 4) {
+                            app.globalData.shopping = true;
+                            wx.navigateTo({
+                              url: '../purchase/purchase'
+                            })
+                          } else {
+                            wx.showToast({
+                              title: '未处理',
+                              icon: 'none',
+                              duration: 2000
+                            })
+                          }
                         } else {
                           wx.showToast({
-                            title: '未处理',
+                            title: res.data.message,
                             icon: 'none',
                             duration: 2000
                           })
                         }
-                      } else {
-                        wx.showToast({
-                          title: res.data.message,
-                          icon: 'none',
-                          duration: 2000
-                        })
-                      }
-                    })
-                  } else {
-                    wx.showToast({
-                      title: res.data.message,
-                      icon: 'none',
-                      duration: 2000
-                    })
+                      })
+                    } else {
+                      wx.showToast({
+                        title: res.data.message,
+                        icon: 'none',
+                        duration: 2000
+                      })
+                    }
                   }
-                }
+                })
+                .catch((errorMsg) => {
+                  console.info(errorMsg)
+                })
+            } else if (self.data.runStatus === 2) {
+              wx.showToast({
+                title: '设备异常，请联系管理员!',
+                icon: 'none',
+                duration: 2000,
+                mask: true
               })
-              .catch((errorMsg) => {
-                console.info(errorMsg)
+            } else if (self.data.runStatus === 3) {
+              wx.showToast({
+                title: '设备已离线',
+                icon: 'none',
+                duration: 2000,
+                mask: true
               })
-          } else if (self.data.runStatus === 2) {
-            wx.showToast({
-              title: '设备异常，请联系管理员!',
-              icon: 'none',
-              duration: 2000,
-              mask: true
-            })
-          } else if (self.data.runStatus === 3) {
-            wx.showToast({
-              title: '设备已离线',
-              icon: 'none',
-              duration: 2000,
-              mask: true
-            })
-          }
-        }
+            }
+          })
+          .catch((errorMsg) => {
+            //error
+          })
       } else {
         wx.login({
           success: res => {
@@ -135,7 +135,6 @@ Page({
                 }).then(function(res) {
                   // console.info('登录', res)
                   wx.setStorageSync('token', res.data.data.token);
-                  wx.setStorageSync('expiration', res.data.data.expiration);
                   wx.getUserInfo({
                     success: function(res) {
                       app.globalData.userInfo = res.userInfo;

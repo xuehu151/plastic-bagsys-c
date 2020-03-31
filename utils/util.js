@@ -30,22 +30,7 @@ const requestUrl = ({
       success: (res) => {
         wx.hideLoading();
         if (res['statusCode'] == 200) {
-          if (res.data.code === 20000){
-            wx.clearStorageSync("token");
-            wx.showToast({
-              title: res.data.message || 'token过期或未授权，请重新授权!',
-              icon: 'none',
-              duration: 2000,
-              mask: true
-            })
-            setTimeout(() => {
-              wx.navigateTo({
-                url: '../purchase/purchase'
-              })
-            },2000)
-          }else{
-            resolve(res)
-          }
+          resolve(res)
         } else {
           wx.showToast({
             title: res.data.msg || '请求出错',
